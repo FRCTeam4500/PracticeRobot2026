@@ -110,7 +110,7 @@ public class SwerveSysID extends LoggedRobot {
         1,
         5,
         5,
-        FRONT_LEFT_ANGLE_MOTOR,
+        FRONT_RIGHT_ANGLE_MOTOR,
         BACK_LEFT_ANGLE_MOTOR,
         BACK_RIGHT_ANGLE_MOTOR);
   }
