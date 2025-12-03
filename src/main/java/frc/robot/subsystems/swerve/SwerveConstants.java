@@ -107,7 +107,7 @@ public class SwerveConstants {
           20,
           25,
           0.415,
-          new FeedbackConstants(0.1, 0, 0), // angle PID
+          new FeedbackConstants(0.075, 0, 0), // angle PID
           1,
           FeedforwardController.forConstantGravity(0, 0.21993, 0.0084308, 0.00078592)); // angle SysID
 
@@ -124,7 +124,7 @@ public class SwerveConstants {
           20,
           25,
           0.588,
-          new FeedbackConstants(0.1, 0, 0),
+          new FeedbackConstants(0.075, 0, 0),
           1,
           FeedforwardController.forConstantGravity(0,  0.2825,  0.0085711,  0.00084691));
 
@@ -141,7 +141,7 @@ public class SwerveConstants {
           20,
           25,
           0.830,
-          new FeedbackConstants(0.1, 0, 0),
+          new FeedbackConstants(0.075, 0, 0),
           1,
           FeedforwardController.forConstantGravity(0, 0.26712 , 0.0086419 , 0.00080337));
 
@@ -158,7 +158,7 @@ public class SwerveConstants {
           20,
           25,
           0.594,
-          new FeedbackConstants(0.1, 0, 0), // angle PID
+          new FeedbackConstants(0.075, 0, 0), // angle PID
           1,
           FeedforwardController.forConstantGravity(
               0, 0.22502, 0.008529, 0.00093948)); // angle feedforward
