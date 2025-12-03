@@ -103,14 +103,13 @@ public class SwerveConstants {
           false,
           17.5,
           new FeedbackConstants(0.1, 0, 0), // drive PID
-          FeedforwardController.forConstantGravity(0, 0.19635, 2.0292, 0.19562), // drive sysID
+          FeedforwardController.forConstantGravity(0, 0.12619, 1.9287, 0.079077), // drive sysID
           20,
           25,
           0.415,
           new FeedbackConstants(0.1, 0, 0), // angle PID
           1,
-          FeedforwardController.forConstantGravity(
-              0, 0.15603, 0.0085738, 0.0010808)); // angle SysID
+          FeedforwardController.forConstantGravity(0, 0.21993, 0.0084308, 0.00078592)); // angle SysID
 
   /** Configuration for FRONT_RIGHT_MODULE. see ModuleConfig to see what values correspond to. */
   public static final ModuleConfig FRONT_RIGHT_CONFIG =
@@ -121,13 +120,13 @@ public class SwerveConstants {
           false,
           17.5,
           new FeedbackConstants(0.1, 0, 0),
-          FeedforwardController.forConstantGravity(0, 0.20427, 2.0144, 0.25467),
+          FeedforwardController.forConstantGravity(0, 0.15084, 2.0679, 0.13208),
           20,
           25,
           0.588,
           new FeedbackConstants(0.1, 0, 0),
           1,
-          FeedforwardController.forConstantGravity(0, 0.27701, 0.0089885, 0.0010955));
+          FeedforwardController.forConstantGravity(0,  0.2825,  0.0085711,  0.00084691));
 
   /** Configuration for BACK_LEFT_MODULE. see ModuleConfig to see what values correspond to. */
   public static final ModuleConfig BACK_LEFT_CONFIG =
@@ -138,13 +137,13 @@ public class SwerveConstants {
           false,
           17.5,
           new FeedbackConstants(0.1, 0, 0),
-          FeedforwardController.forConstantGravity(0, 0.2049, 2.0169, 0.2644),
+          FeedforwardController.forConstantGravity(0, 0.16252, 2.0607, 0.10109),
           20,
           25,
           0.830,
           new FeedbackConstants(0.1, 0, 0),
           1,
-          FeedforwardController.forConstantGravity(0, 0.25886, 0.0090872, 0.0012662));
+          FeedforwardController.forConstantGravity(0, 0.26712 , 0.0086419 , 0.00080337));
 
   /** Configuration for BACK_RIGHT_MODULE. see ModuleConfig to see what values correspond to. */
   public static final ModuleConfig BACK_RIGHT_CONFIG =
@@ -155,14 +154,14 @@ public class SwerveConstants {
           false,
           17.5,
           new FeedbackConstants(0.1, 0, 0), // drive PID
-          FeedforwardController.forConstantGravity(0, 0.20206, 2.0934, 0.18192), // drive sysID
+          FeedforwardController.forConstantGravity(0, 0.16696, 2.0434, 0.083132), // drive sysID
           20,
           25,
           0.594,
           new FeedbackConstants(0.1, 0, 0), // angle PID
           1,
           FeedforwardController.forConstantGravity(
-              0, 0.25348, 0.0092287, 0.0014289)); // angle feedforward
+              0, 0.22502, 0.008529, 0.00093948)); // angle feedforward
 
   public static final Motor FRONT_LEFT_DRIVE_MOTOR =
       Motor.fromTalonFX(
