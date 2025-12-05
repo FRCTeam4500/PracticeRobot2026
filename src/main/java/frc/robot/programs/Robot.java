@@ -5,6 +5,8 @@
 
 package frc.robot.programs;
 
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -69,6 +71,7 @@ public class Robot extends LoggedRobot {
 
     SendableChooser<Command> chooser = new SendableChooser<>();
     chooser.setDefaultOption("None", Commands.none());
+    chooser.addOption("This is a test auto", new PathPlannerAuto("New Auto")); // maybe auto
     SmartDashboard.putData("Auto Chooser", chooser);
     RobotModeTriggers.autonomous().whileTrue(Commands.deferredProxy(chooser::getSelected));
   }

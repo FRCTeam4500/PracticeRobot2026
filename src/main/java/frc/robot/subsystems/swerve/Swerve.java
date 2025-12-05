@@ -308,35 +308,35 @@ public class Swerve extends SubsystemBase implements Loggable {
                     wheelDelta /= SwerveConstants.BACK_LEFT_TRANSLATION.getNorm();
                     switch (i) {
                       case 0:
-                        System.out.println(
-                            "Front Left Drive Motor New Conversion Factor: "
-                                + FRONT_LEFT_CONFIG.driveConversionFactor()
+                        SmartDashboard.putNumber("Front Left Drive Motor New Conversion Factor",
+                                FRONT_LEFT_CONFIG.driveConversionFactor()
                                     * (gyroDelta / wheelDelta));
                         break;
                       case 1:
-                        System.out.println(
-                            "Front Right Drive Motor New Conversion Factor: "
-                                + FRONT_RIGHT_CONFIG.driveConversionFactor()
+                        SmartDashboard.putNumber("Front Right Drive Motor New Conversion Factor",
+                                FRONT_RIGHT_CONFIG.driveConversionFactor()
                                     * (gyroDelta / wheelDelta));
                         break;
                       case 2:
-                        System.out.println(
-                            "Back Left Drive Motor New Conversion Factor: "
-                                + BACK_LEFT_CONFIG.driveConversionFactor()
+                        SmartDashboard.putNumber("Back Left Drive Motor New Conversion Factor",
+                                BACK_LEFT_CONFIG.driveConversionFactor()
                                     * (gyroDelta / wheelDelta));
                         break;
                       case 3:
-                        System.out.println(
-                            "Back Right Drive Motor New Conversion Factor: "
-                                + BACK_RIGHT_CONFIG.driveConversionFactor()
+                        SmartDashboard.putNumber(
+                            "Back Right Drive Motor New Conversion Factor",
+                                BACK_RIGHT_CONFIG.driveConversionFactor()
                                     * (gyroDelta / wheelDelta));
                         break;
                       default:
                         break;
                     }
                   }
-                }))
-        .withName("Drive Conversion Factor Finder");
+                })).andThen(
+                  Commands.runOnce( () -> {
+                    drive(new ChassisSpeeds());
+                  })
+                ).withName("Drive Conversion Factor Finder");
   }
 
   /**
