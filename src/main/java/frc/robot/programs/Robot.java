@@ -5,6 +5,7 @@
 
 package frc.robot.programs;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -57,7 +58,7 @@ public class Robot extends LoggedRobot {
     Trigger faceBackwards = new Trigger(() -> xbox.getRightY() > 0.5);
     Trigger resetHeading = xbox.a();
     Trigger stow = xbox.y();
-
+    Trigger test = xbox.x(); // for auto alighn test
     resetHeading.and(onBlue).onTrue(swerve.resetHeading(Rotation2d.fromDegrees(0)));
     resetHeading.and(onRed).onTrue(swerve.resetHeading(Rotation2d.fromDegrees(180)));
     faceForwards.and(onBlue).onTrue(swerve.setTargetHeading(Rotation2d.fromDegrees(0)));
@@ -65,6 +66,7 @@ public class Robot extends LoggedRobot {
     faceBackwards.and(onRed).onTrue(swerve.setTargetHeading(Rotation2d.fromDegrees(0)));
     faceBackwards.and(onBlue).onTrue(swerve.setTargetHeading(Rotation2d.fromDegrees(180)));
     stow.onTrue(structure.stow());
+    test.whileTrue(swerve.tagmove());  // put command in once made
   }
 
   private void setupAuto() {
@@ -72,6 +74,7 @@ public class Robot extends LoggedRobot {
     SendableChooser<Command> chooser = new SendableChooser<>();
     chooser.setDefaultOption("None", Commands.none());
     chooser.addOption("This is a test auto", new PathPlannerAuto("New Auto")); // maybe auto
+    NamedCommands.registerCommand("test", null); // temp
     SmartDashboard.putData("Auto Chooser", chooser);
     RobotModeTriggers.autonomous().whileTrue(Commands.deferredProxy(chooser::getSelected));
   }

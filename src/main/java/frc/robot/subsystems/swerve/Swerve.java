@@ -3,17 +3,24 @@ package frc.robot.subsystems.swerve;
 import static frc.robot.subsystems.swerve.SwerveConstants.*;
 import static frc.robot.utilities.ExtendedMath.withHardDeadzone;
 
+import javax.swing.GroupLayout.Alignment;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+
+import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -39,6 +46,7 @@ import frc.robot.utilities.StopTilting;
 import frc.robot.utilities.logging.HoundLog;
 import frc.robot.utilities.logging.Loggable;
 
+
 /** The subsystem that controls our drivetrain, which is known as a swerve drive. */
 public class Swerve extends SubsystemBase implements Loggable {
   private Gyro gyro;
@@ -49,10 +57,16 @@ public class Swerve extends SubsystemBase implements Loggable {
   private Rotation2d targetHeading;
   private FeedbackController headingFeedback;
   private PoseFeedbackController poseFeedback;
+  private int targetID;
 
   /** Creates a new {@link Swerve} using the constants defined in {@link SwerveConstants} */
   public Swerve() {
-    tagCameras = new Limelight[] {};
+    tagCameras =
+        new Limelight[] {
+         
+          new Limelight("limelight-right"),
+          new Limelight("limelight-left")
+        };
 
     gyro = Gyro.fromNavX(() -> getSpeeds().omegaRadiansPerSecond, navx -> {});
     modules =
@@ -94,14 +108,14 @@ public class Swerve extends SubsystemBase implements Loggable {
       poseFeedback =
           new PoseFeedbackController(
               FeedbackController.fromPID(
-                  1.5,
+                  2.4,
                   0,
                   0,
                   pid -> {
                     pid.setTolerance(0.02, 0.1);
                   }),
               FeedbackController.fromPID(
-                  2,
+                  2.4,
                   0,
                   0,
                   pid -> {
@@ -239,6 +253,51 @@ public class Swerve extends SubsystemBase implements Loggable {
         .until(() -> poseFeedback.atTarget())
         .withName("Pose Centric");
   }
+
+   //TODO  needs finish
+
+   public Command tagmove() {
+    
+    
+    return cameraAlign(tagCameras[0], new Translation2d(1.2, 0));
+  }
+
+
+
+   private Command cameraAlign(Limelight camera, Translation2d offset) {
+    return Commands.run(
+            () -> {
+              Pair<Transform2d, Integer> output = camera.getTargetPoseRobotSpace();
+              
+              ChassisSpeeds speeds =
+                  poseFeedback.calculate(
+                      new Pose2d(
+                          output.getFirst().getTranslation(),
+                          estimator.getEstimatedPosition().getRotation()),
+                      new Pose2d(offset, Rotation2d.fromDegrees(-60)));
+              
+                drive(
+                    new ChassisSpeeds(
+                        -speeds.vxMetersPerSecond,
+                        speeds.vyMetersPerSecond,
+                        speeds.omegaRadiansPerSecond));
+               
+            },
+            this)
+        .until(poseFeedback::atTarget); 
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   /**
    * Updates the heading of the robot
@@ -540,6 +599,8 @@ public class Swerve extends SubsystemBase implements Loggable {
     HoundLog.log(path, "Back Right Module", modules[3]);
     HoundLog.log(path, "Gyro", gyro);
     HoundLog.log(path, "At Target Pose", poseFeedback.atTarget());
+    HoundLog.log(path, "Right Camera Tag Relative Pose", tagCameras[0].getTargetPoseRobotSpace().getFirst());
+    HoundLog.log(path, "Left Camera Tag Relative Pose", tagCameras[1].getTargetPoseRobotSpace().getFirst());
     for (Limelight camera : tagCameras) {
       HoundLog.log(path, camera.getName(), camera);
     }
