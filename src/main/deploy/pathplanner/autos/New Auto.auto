@@ -7,13 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Example Path"
+            "pathName": "test 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "test"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New Path"
+            "pathName": "test 2"
           }
         }
       ]

@@ -74,7 +74,7 @@ public class Robot extends LoggedRobot {
     SendableChooser<Command> chooser = new SendableChooser<>();
     chooser.setDefaultOption("None", Commands.none());
     chooser.addOption("This is a test auto", new PathPlannerAuto("New Auto")); // maybe auto
-    NamedCommands.registerCommand("test", null); // temp
+    NamedCommands.registerCommand("test", swerve.tagmove()); // temp
     SmartDashboard.putData("Auto Chooser", chooser);
     RobotModeTriggers.autonomous().whileTrue(Commands.deferredProxy(chooser::getSelected));
   }

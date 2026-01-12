@@ -106,16 +106,16 @@ public class Swerve extends SubsystemBase implements Loggable {
             });
     if (RobotBase.isReal()) {
       poseFeedback =
-          new PoseFeedbackController(
+          new PoseFeedbackController(  
               FeedbackController.fromPID(
-                  2.4,
+                  .3,
                   0,
                   0,
                   pid -> {
                     pid.setTolerance(0.02, 0.1);
                   }),
               FeedbackController.fromPID(
-                  2.4,
+                  1.2,
                   0,
                   0,
                   pid -> {
@@ -255,11 +255,12 @@ public class Swerve extends SubsystemBase implements Loggable {
   }
 
    //TODO  needs finish
-
+  
    public Command tagmove() {
     
     
-    return cameraAlign(tagCameras[0], new Translation2d(1.2, 0));
+    return cameraAlign(tagCameras[0], new Translation2d(1.4, 0));
+    
   }
 
 
@@ -274,7 +275,7 @@ public class Swerve extends SubsystemBase implements Loggable {
                       new Pose2d(
                           output.getFirst().getTranslation(),
                           estimator.getEstimatedPosition().getRotation()),
-                      new Pose2d(offset, Rotation2d.fromDegrees(-60)));
+                      new Pose2d(offset, Rotation2d.fromDegrees(0)));
               
                 drive(
                     new ChassisSpeeds(
