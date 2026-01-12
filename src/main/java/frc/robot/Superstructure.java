@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.orchestra.Orc;
+import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.utilities.StopTilting;
 import frc.robot.utilities.logging.Loggable;
 
@@ -13,6 +14,7 @@ import frc.robot.utilities.logging.Loggable;
  */
 public class Superstructure implements Loggable {
   // Create objects for all non-drivebase subsystems
+  private Shooter shooter;
 
   public Superstructure() {
     StopTilting.setupSuperstructure(new Transform3d[] {}, new double[] {});
